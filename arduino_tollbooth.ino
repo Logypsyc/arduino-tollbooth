@@ -1,3 +1,5 @@
+int speed_value_motor1;
+
 void setup() {
   // put your setup code here, to run once:
   pinMode(13, OUTPUT);
@@ -5,25 +7,30 @@ void setup() {
   pinMode(11, INPUT_PULLUP); //button down
   pinMode(10, INPUT_PULLUP); //upper limit
   pinMode(9, INPUT_PULLUP); //lower limit
-  pinMode(8, OUTPUT); //motor
+  pinMode(7, OUTPUT); //h-bridge leg 2
+  pinMode(6, OUTPUT); //h-bridge leg 1
+  pinMode(3, OUTPUT);
 }
 
 
 void loop() {
+  
+  // just invert the above values for reverse motion,
+ // i.e. motor1APin = HIGH and motor2APin = LOW
+
+  
   if (buttonPressed(12)) {
     //flash led
     digitalWrite(13, HIGH);
     delay(100);
     digitalWrite(13, LOW);
-
-    //turn motor on
-    digitalWrite(8, HIGH);
-   
+    digitalWrite(6, LOW); // set leg 1 of the H-bridge low
+    digitalWrite(7, HIGH); // set leg 2 of the H-bridge high
+    speed_value_motor1 = 127; // half speed
+    analogWrite(3, speed_value_motor1);
     if (buttonPressed(10)) {
-      //turn motor off
-      digitalWrite(8, LOW);
-      //turn led on
-      digitalWrite(13, HIGH);
+      digitalWrite(6, LOW); // set leg 1 of the H-bridge low
+      digitalWrite(7, LOW);
     }
   }
 
@@ -32,18 +39,27 @@ void loop() {
     digitalWrite(13, HIGH);
     delay(100);
     digitalWrite(13, LOW);
-    
-    //turn motor on in other direction
-    digitalWrite(8, ! HIGH);
-
-    
+    digitalWrite(6, HIGH); // set leg 1 of the H-bridge low
+    digitalWrite(7, LOW); // set leg 2 of the H-bridge high
+    speed_value_motor1 = -127; // half speed
+    analogWrite(3, speed_value_motor1);
     if (buttonPressed(9)) {
-      //turn motor off
-      digitalWrite(9, LOW);
-      digitalWrite(13, LOW);
+      digitalWrite(6, LOW); // set leg 1 of the H-bridge low
+      digitalWrite(7, LOW);
     }
   }
 
+  if (buttonPressed(10)) {
+    digitalWrite(13, HIGH);
+    delay(100);
+    digitalWrite(13, LOW);
+  }
+
+  if (buttonPressed(9)) {
+    digitalWrite(13, HIGH);
+    delay(100);
+    digitalWrite(13, LOW);
+  }
 }
 
 int buttonPressed(uint8_t button) {
