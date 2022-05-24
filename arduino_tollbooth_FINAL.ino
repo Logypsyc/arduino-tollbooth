@@ -17,7 +17,7 @@ void loop() {
   if (buttonPressed(12)) {
     digitalWrite(6, LOW); // set leg 1 of the H-bridge low
     digitalWrite(7, HIGH); // set leg 2 of the H-bridge high
-    analogWrite(3, 127);
+    analogWrite(3, 63);
     if (buttonPressed(10)) {
       digitalWrite(6, LOW); // set leg 1 of the H-bridge low
       digitalWrite(7, LOW);
@@ -27,7 +27,7 @@ void loop() {
   if (buttonPressed(11)) {
     digitalWrite(6, HIGH); // set leg 1 of the H-bridge low
     digitalWrite(7, LOW); // set leg 2 of the H-bridge high
-    analogWrite(3, -127);
+    analogWrite(3, -63);
     if (buttonPressed(9)) {
       digitalWrite(6, LOW); // set leg 1 of the H-bridge low
       digitalWrite(7, LOW);
