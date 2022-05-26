@@ -7,7 +7,9 @@ void setup() {
   pinMode(9, INPUT_PULLUP); //lower limit
   pinMode(7, OUTPUT); //h-bridge leg 2
   pinMode(6, OUTPUT); //h-bridge leg 1
-  pinMode(3, OUTPUT); 
+  pinMode(5, OUTPUT); //red light
+  pinMode(4, OUTPUT); //green light
+  pinMode(3, OUTPUT); //motor output
 }
 
 
@@ -17,9 +19,11 @@ void loop() {
     digitalWrite(6, LOW); // set leg 1 of the H-bridge low
     digitalWrite(7, HIGH); // set leg 2 of the H-bridge high
     analogWrite(3, 255);
+    digitalWrite(5, LOW);
     } while (digitalRead(10) == HIGH);
       digitalWrite(6, LOW); // set leg 1 of the H-bridge low
       digitalWrite(7, LOW);
+      digitalWrite(4, HIGH);
   }
 
   if (digitalRead(11) == HIGH) {
@@ -27,8 +31,10 @@ void loop() {
     digitalWrite(6, HIGH); // set leg 1 of the H-bridge low
     digitalWrite(7, LOW); // set leg 2 of the H-bridge high
     analogWrite(3, 255);
+    digitalWrite(4, LOW);
     } while (digitalRead(9) == HIGH);
     digitalWrite(6, LOW); // set leg 1 of the H-bridge low
     digitalWrite(7, LOW);
+    digitalWrite(5, HIGH);
   }
 }
